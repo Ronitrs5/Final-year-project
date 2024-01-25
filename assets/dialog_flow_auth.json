@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "majorprojectflutter-vake",
+  "private_key_id": "a1944723ee50ddaddfc75151fd50c6ce0c25b657",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRCBbtDKXjwEEU\nzdWb8MA6/FlG12qP1E/KmFFRoKKxAC3E0KB8POKfgTfK589Fw5Bgqi6VDh+h+bwk\n3+YEeb5sALUivcr7eBTTp9fXJd3/1ZljaOtfIBKp6lhcNsaif+18MW4tZqagDQiN\nDbjAww+GUV1hX0/WxBmH0+FwYa2F0mZRMWRjXSi94pp7OsyYI8A20Hb6X/VVYXx0\n3JU3TscizBr0hnACZvVQCpegaUxpOkhyZIb+/5muBZCbzNRpaAAweWLV3PTOdDe1\nOf2LwggCdqBo7YTuzaDD7A9X4Dfb7yQ2t/yGKYWBnUcwqRbvj1s2Ntl5O2lYHfs5\n9AfOsl+lAgMBAAECggEACGvPQqMLDtsYtB4bwDHJiMbQUPCOQDehNEwBIKz8SO21\nKlPuVzr7tUnXJdNDcC/SAfbxM/uS7itZt1GW2nDOKVs48OqdAhcDHcjKAwapRCyG\nhrD8JIOuBM7mWuaxB2xodKOoKOeVCGcmBEq8efWRy0s9XBYjKQeS8LwqPaUNwNGX\ntj4oRp5Vrg0NJCbqa9vnACoCibsnnUXNDlmmS81j+sS1j+9XqiAEmmJy5UYfs1Ht\nPhzm7YhWQ+N4npk3kmjMNQIHZ6/9h3YToMjeGmwJVyBKj2+4693VZfpbs1HxM8gE\nzXMRRpkMFsBpW07SBZgqALzQYzW+bg+cuk3gR13DwQKBgQD1arg/MnJN6tU8draY\nXNF2ES3mS0VZzRkJn354GyCMpMX52tpI7CJbtnXCBOtaqa1pRazp1B76gNs/Wgzb\n0tgTJVm2sWz5gVb1yEFAVm2h8/JwjGf5Ib+fOnLXC2SXjqR2BFdZc50BlPAHJ6ow\nHzHzTCRvKEpWAlgvz6WrsoT+5QKBgQDaC7HK6xhZS9e0iQHn/n7t6Ck5RmRin6Jr\nmGI+nVaPm7Mlw8Ad7WfY5n2DMY+Ljqt7Ib8mDs5Q2+O0g26nM6agroDodH0M4Uiv\n6qUfHEB42e0/9YKUDuonRd3+OfMahfGXAIc0mBrcCFvjx7lfibw/g/2CF+qKl1aN\nic7lrG0RwQKBgFtPmb3pxx22giA9CzMlVcnYGnvVBbij1uz9qtCFR1cM95w/EXiQ\nYzg8axQFQIw7FYpVokBd7CjISMsJdj9T85EsFHUlDqbGuNQ57g1CGwhm+41ksErB\ng8p6tL/OPV8mc4p1kwp1ObWc9LG00F2XPb6IVgYFt6LIvIcNe1am1VUBAoGAEwfi\nRKuwPFr6QK+UkwMLYQhaUL1sFY+JRYrPSFfDLlWQlUM4iWQnJC851TGGLdAN93lC\njbfNGhGXFjJCfiVr7apNZfyEzZL8HR6FuulkVyfuJR7wfquulC7s6Tt1lGMMavmI\n03ZTIdE48/CCpWwIGiMTBT/BIMeErmXQwQsDmgECgYEAqchelHfHZ2YjYRCdiiMQ\nWUhzi3nU6AdqoKhOTb3TA7HxsBBfgW4fCfmT/vrRHFrKpZFW3zuj5/3Q3QrSwwqe\nNyQJWRldJN9WrGCXRahHE41coHYjiwOdcjgYHRTUex0hyj2WT4sDmVu6wHro0boe\nFrBrQ3SemWoFcUbEJLLeE3w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "majorprojectchatbot@majorprojectflutter-vake.iam.gserviceaccount.com",
+  "client_id": "115325625630302886824",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/majorprojectchatbot%40majorprojectflutter-vake.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
