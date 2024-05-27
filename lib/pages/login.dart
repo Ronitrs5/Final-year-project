@@ -8,7 +8,6 @@ import 'package:major_project/pages/main_page_bottom_nav.dart';
 import 'package:major_project/pages/water_bottom_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../sidebar/events/majoreventdir/major_technical.dart';
 
 String student_IDl = "";
 
@@ -264,7 +263,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white54,                      ),
+                        backgroundColor: Colors.white,                      ),
                       onPressed: _isRegistering ? null : () => loginUser(),
                       child: _isRegistering
                           ? Padding(

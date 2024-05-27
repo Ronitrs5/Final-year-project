@@ -61,8 +61,7 @@ class _AdminMajorEventState extends State<AdminMajorEvent> {
             'notification': <String, dynamic>{
               'title': title,
               'body': body,
-              'android_channel': 'acd',
-              'icon': 'assets/images/food1.png',
+              'android_channel': 'acdaa',
             },
             'condition': "'event_notification_all' in topics",
           },
@@ -70,9 +69,9 @@ class _AdminMajorEventState extends State<AdminMajorEvent> {
       );
 
       if (response.statusCode == 200) {
-        print("Success");
+        print("Success NOTI");
       } else {
-        print("Failed");
+        print("Failed NOTI");
       }
     } catch (e) {
       if (kDebugMode) {

@@ -77,7 +77,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
   TextEditingController tec_deadline = TextEditingController();
   TextEditingController tec_extra = TextEditingController();
 
-  static const String fcmServerKey = "AAAA3Pcx3TE:APA91bHrCsH2xE1TwYDFZlq43p0m9234aFN716NUzSzC1RqhPf6zbbiRssKv5UANVSvFB7oeO21s3evn62ABapIQGDJvKjJDlzf_ZQz32axZRvLdP7ENpCmh8ozG-Sig763ajjDxXXmR";
+  static const String fcmServerKey = "AAAAq3gzGJc:APA91bGIjXLTpqoS8wn4jzZ2Vmk68C7ETDVNwwJJNmP8bQf_uruCD8CYrCiBAwI7W07VJ_WDW6MEqXoJo1r3rJ2npSUqn2fJrB_QeCvwz0wZ4v-1VH5janO-xq4y0RKV38rZvjgjkFL_";
 
   static Future<void> sendPushMessage(String title, String body) async {
     try {
@@ -99,8 +99,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
             'notification': <String, dynamic>{
               'title': title,
               'body': body,
-              'android_channel': 'acd',
-              'icon': 'assets/images/food1.png',
+              'android_channel': 'acdaa',
             },
             'condition': "'event_notification_all' in topics",
           },

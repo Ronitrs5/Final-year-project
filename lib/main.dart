@@ -17,12 +17,21 @@ import 'adminpages/admin_bottom_nav.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //     options: FirebaseOptions(
+  //       apiKey: 'AIzaSyBqPXKxiOS__F1CY-ZHnJ4ykKu3Ap19-D8',
+  //       appId: '1:3727734671:android:d8fb31e571cdcd28e8fdfa',
+  //       projectId: 'event-horizon-8fc09',
+  //       storageBucket: 'event-horizon-8fc09.appspot.com', messagingSenderId: '',
+  //     )
+  // );
+
   await Firebase.initializeApp(
       options: FirebaseOptions(
-        apiKey: 'AIzaSyBqPXKxiOS__F1CY-ZHnJ4ykKu3Ap19-D8',
-        appId: '1:3727734671:android:d8fb31e571cdcd28e8fdfa',
-        projectId: 'event-horizon-8fc09',
-        storageBucket: 'event-horizon-8fc09.appspot.com', messagingSenderId: '',
+        apiKey: 'AIzaSyCKewRXqaGC0eOqoLGUwU-2szgDFC1mCg0',
+        appId: '1:736456022167:android:e23cba36038b134f5571d2',
+        projectId: 'formly-71729',
+        storageBucket: 'formly-71729.appspot.com', messagingSenderId: '736456022167',
       )
   );
 

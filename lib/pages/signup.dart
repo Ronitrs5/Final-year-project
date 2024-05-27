@@ -290,7 +290,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white54,
+                        backgroundColor: Colors.white,
                       ),
                       onPressed: _isRegistering ? null : () => _register(),
                       child: _isRegistering
