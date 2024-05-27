@@ -21,19 +21,19 @@ class _MessagesScreenState extends State<MessagesScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  bottomLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
-                  bottomRight: Radius.circular(widget.messages[index]['isUserMessage'] ? 0 : 20),
-                  topLeft: Radius.circular(widget.messages[index]['isUserMessage'] ? 20 : 0),
+                  bottomLeft: const Radius.circular(8),
+                  topRight: const Radius.circular(8),
+                  bottomRight: Radius.circular(widget.messages[index]['isUserMessage'] ? 0 : 8),
+                  topLeft: Radius.circular(widget.messages[index]['isUserMessage'] ? 8 : 0),
                 ),
 
-                color: widget.messages[index]['isUserMessage'] ? Colors.blue : Colors.green,
+                color: widget.messages[index]['isUserMessage'] ? Colors.blueGrey : Colors.blueGrey[200],
               ),
               constraints: BoxConstraints(maxWidth: w * 2 / 3),
-              child: Text(widget.messages[index]['message'].text.text[0]),
+              child: Text(widget.messages[index]['message'].text.text[0], style: TextStyle(color: widget.messages[index]['isUserMessage'] ? Colors.white : Colors.black, fontFamily: 'Namun'),),
             )
           ],
         ),

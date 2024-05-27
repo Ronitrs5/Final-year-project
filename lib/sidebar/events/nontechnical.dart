@@ -15,10 +15,10 @@ class _NonTechnicalEventsState extends State<NonTechnicalEvents> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: const Text("Non-Technical Events"),
-        backgroundColor: Colors.grey[100],
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Non-Technical Events"),
+      //   backgroundColor: Colors.grey[100],
+      // ),
       body: FutureBuilder(
         future: getTechnicalEventData(),
         builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
@@ -85,54 +85,64 @@ class TechnicalEventCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0), // Set your desired border radius
+          borderRadius: BorderRadius.circular(8.0),
           side: BorderSide(
-            color: Colors.grey[400]!, // Set your desired border color
-            width: 1.0, // Set your desired border width
+            color: Colors.grey[300]!,
+            width: 1.0,
           ),
         ),
         margin: const EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ListTile(
-            //   title: Text(event['title'], style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),),
-            //   // Add more ListTile properties based on your data structure
-            // ),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.0),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomRight,
+              colors: [
+                Colors.green[50]!,
+                Colors.indigo[100]!
 
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
-              child: Center(child: Align(alignment: Alignment.center,child: Text("${event['title']}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),))),
-            ),
+                // _generateRandomColor(),
+                // _generateRandomColor(),
 
-            const Padding(
-              padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: Divider(thickness: 1,),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-              child: Text("• Venue: ${event['venue']}"),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
-              child: Text("• Date: ${event['date']}"),
-            ),
-
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(8, 0, 0, 4),
-                  child: Text("View details", style: TextStyle(color: Colors.blueAccent),),
-                ),
-
-                Icon(Icons.navigate_next, color: Colors.blueAccent,)
+                // Colors.yellow[200]!, // Add more colors for the gradient
+                // Colors.green[200]!, // Add more colors for the gradient
+                // Colors.grey[200]!, // Add more colors for the gradient
               ],
             ),
-            // Add more Text widgets for other event details
-          ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+                child: Text("${event['title']}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),),
+              ),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: Divider(thickness: 1,),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+                child: Text("• Venue: ${event['venue']}"),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 4),
+                child: Text("• Date: ${event['date']}"),
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(8, 0, 0, 4),
+                    child: Text("View details", style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),),
+                  ),
+                  Icon(Icons.navigate_next, color: Colors.blueAccent,)
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -154,7 +164,6 @@ class EventDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -456,7 +465,7 @@ class EventDetailsPage extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(

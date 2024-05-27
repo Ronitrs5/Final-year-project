@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:major_project/pages/admin.dart';
+import 'package:major_project/adminpages/admin.dart';
+import 'package:major_project/colors/colors.dart';
 import 'package:major_project/pages/login.dart';
 import 'package:major_project/pages/signup.dart';
+import 'package:major_project/sidebar/events/majoreventdir/major_technical.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -14,24 +16,25 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
+    return Scaffold(
+      backgroundColor: backgroundAppbar,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
+      body: const SafeArea(
         child: DefaultTabController(
           length: 3, // Number of tabs
           child: Column(
             children: [
               // TabBar
               TabBar(
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.black54,
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.white60,
                 tabs: [
-                  Tab(text: 'Register'),
+                  Tab(text: 'Register',),
                   Tab(text: 'Login'),
                   Tab(text: 'Admin'),
                 ],
-                indicatorColor: Colors.black,
+                indicatorColor: Colors.white,
+                dividerColor: Colors.transparent,
               ),
               // TabBarView
               Expanded(
