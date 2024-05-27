@@ -214,7 +214,6 @@ class _IDBenefitsState extends State<IDBenefits> {
                           child: GestureDetector(
 
                             onTap: (){
-
                               _launchURLInDefaultBrowserOnAndroid(context, data['url']);
 
                             },

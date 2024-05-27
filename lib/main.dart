@@ -17,7 +17,14 @@ import 'adminpages/admin_bottom_nav.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: 'AIzaSyBqPXKxiOS__F1CY-ZHnJ4ykKu3Ap19-D8',
+        appId: '1:3727734671:android:d8fb31e571cdcd28e8fdfa',
+        projectId: 'event-horizon-8fc09',
+        storageBucket: 'event-horizon-8fc09.appspot.com', messagingSenderId: '',
+      )
+  );
 
   runApp(MyApp());
 }

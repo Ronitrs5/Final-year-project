@@ -73,7 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
       print('Error registering user: $e');
 
       String errorMessage = e.toString();
-      int startIndex = errorMessage.indexOf("]") + 1; // Find the index after the closing bracket
+      int startIndex = errorMessage.indexOf("]") + 1;
       String mainErrorMessage = errorMessage.substring(startIndex).trim();
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
       );
     } finally {
       setState(() {
-        _isRegistering = false; // Hide progress indicator
+        _isRegistering = false;
       });
     }
   }

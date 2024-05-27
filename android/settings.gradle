@@ -10,52 +10,17 @@ pluginManagement {
 
     includeBuild("${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle")
 
-    plugins {
-        id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
     }
 }
 
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+    id "com.android.application" version "7.3.0" apply false
+    id "org.jetbrains.kotlin.android" version "1.8.0" apply false
+}
+
 include ":app"
-
-apply from: "${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle/app_plugin_loader.gradle"
-
-//pluginManagement {
-//    repositories {
-//        google()
-//        mavenCentral()
-//        gradlePluginPortal()
-//    }
-//
-//    plugins {
-//        id "dev.flutter.flutter-gradle-plugin" version "1.0.0"
-//        id "com.android.application" version "7.3.0" apply false // Update AGP version as needed
-//        id "org.jetbrains.kotlin.android" version "1.7.10" apply false // Update Kotlin version as needed
-//        id "com.google.gms.google-services" version "4.4.0" apply false // Update Google services version as needed
-//        id "com.google.firebase.crashlytics" version "2.9.9" apply false // Update Crashlytics version as needed
-//    }
-//}
-//
-//include ":app"
-//include ":shared_preferences_android"
-//include ":firebase_core"
-//include ":flutter_plugin_android_lifecycle"
-//include ":firebase_auth"
-//include ":flutter_custom_tabs_android"
-//include ":url_launcher_android"
-//include ":firebase_storage"
-//include ":image_picker_android"
-//include ":cloud_firestore"
-//include ":firebase_messaging"
-//
-//// Define project paths for the plugins
-//def flutterSdkPath = new File("C:\\flutter\\flutter").getAbsolutePath() // Replace "PATH_TO_FLUTTER_SDK" with the actual path
-//project(":shared_preferences_android").projectDir = new File(flutterSdkPath, "packages/shared_preferences/shared_preferences_android")
-//project(":firebase_core").projectDir = new File(flutterSdkPath, "packages/firebase_core/firebase_core")
-//project(":flutter_plugin_android_lifecycle").projectDir = new File(flutterSdkPath, "packages/flutter_plugin_android_lifecycle/flutter_plugin_android_lifecycle")
-//project(":firebase_auth").projectDir = new File(flutterSdkPath, "packages/firebase_auth/firebase_auth")
-//project(":flutter_custom_tabs_android").projectDir = new File(flutterSdkPath, "packages/flutter_custom_tabs/flutter_custom_tabs_android")
-//project(":url_launcher_android").projectDir = new File(flutterSdkPath, "packages/url_launcher/url_launcher_android")
-//project(":firebase_storage").projectDir = new File(flutterSdkPath, "packages/firebase_storage/firebase_storage")
-//project(":image_picker_android").projectDir = new File(flutterSdkPath, "packages/image_picker/image_picker_android")
-//project(":cloud_firestore").projectDir = new File(flutterSdkPath, "packages/cloud_firestore/cloud_firestore")
-//project(":firebase_messaging").projectDir = new File(flutterSdkPath, "packages/firebase_messaging/firebase_messaging")

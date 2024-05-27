@@ -15,7 +15,7 @@ class AdminCommunityPage extends StatefulWidget {
 }
 
 class _AdminCommunityPageState extends State<AdminCommunityPage> {
-  static const String fcmServerKey = "AAAA3Pcx3TE:APA91bHrCsH2xE1TwYDFZlq43p0m9234aFN716NUzSzC1RqhPf6zbbiRssKv5UANVSvFB7oeO21s3evn62ABapIQGDJvKjJDlzf_ZQz32axZRvLdP7ENpCmh8ozG-Sig763ajjDxXXmR";
+  static const String fcmServerKey = "AAAAq3gzGJc:APA91bGIjXLTpqoS8wn4jzZ2Vmk68C7ETDVNwwJJNmP8bQf_uruCD8CYrCiBAwI7W07VJ_WDW6MEqXoJo1r3rJ2npSUqn2fJrB_QeCvwz0wZ4v-1VH5janO-xq4y0RKV38rZvjgjkFL_";
 
   String active = "";
   String type = "";
