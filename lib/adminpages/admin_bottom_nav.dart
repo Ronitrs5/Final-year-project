@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:major_project/adminpages/admin_community.dart';
 import 'package:major_project/adminpages/admin_main_page.dart';
+import 'package:major_project/adminpages/admin_scholarship_benefits.dart';
 
 class AdminBottomNavPage extends StatefulWidget {
   const AdminBottomNavPage({super.key});
@@ -18,14 +19,16 @@ class _AdminBottomNavPageState extends State<AdminBottomNavPage> {
 
   List<Widget> tabItems = [
     const AdminMainPage(),
-    AdminCommunityPage()
+    const AdminScholarshipTabbar(),
+    const AdminCommunityPage(),
+
 
   ];
 
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
@@ -38,10 +41,10 @@ class _AdminBottomNavPageState extends State<AdminBottomNavPage> {
           animationCurve: Curves.easeIn,
           selectedIndex: _selectedIndex,
           height: 55,
-          animationDuration: Duration(milliseconds: 350),
+          animationDuration: const Duration(milliseconds: 350),
           showElevation: false,
           shadows: [
-            BoxShadow(
+            const BoxShadow(
                 color: Colors.transparent
             )
           ],
@@ -51,14 +54,19 @@ class _AdminBottomNavPageState extends State<AdminBottomNavPage> {
           }),
           items: [
             FlashyTabBarItem(
-              icon: Icon(Icons.home_rounded, color: Colors.grey,size: 25,),
-              title: Text('Events', style: TextStyle(color: Colors.black),),
+              icon: const Icon(Icons.home_rounded, color: Colors.grey,size: 25,),
+              title: const Text('Events', style: TextStyle(color: Colors.black),),
             ),
 
             FlashyTabBarItem(
-              icon: Icon(Icons.school_rounded, color: Colors.grey,size: 25,),
-              title: Text('Communities', style: TextStyle(color: Colors.black)),
-            )
+              icon: const Icon(Icons.currency_pound_rounded, color: Colors.grey,size: 25,),
+              title: const Text('Scholarship Benefit', style: TextStyle(color: Colors.black)),
+            ),
+
+            FlashyTabBarItem(
+              icon: const Icon(Icons.school_rounded, color: Colors.grey,size: 25,),
+              title: const Text('Communities', style: TextStyle(color: Colors.black)),
+            ),
 
 
 

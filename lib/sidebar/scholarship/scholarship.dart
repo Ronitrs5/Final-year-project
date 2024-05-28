@@ -18,7 +18,7 @@ class Scholarship extends StatefulWidget {
 }
 
 class _ScholarshipState extends State<Scholarship> {
-  bool gov = false;
+  bool gov = true;
   bool pri = true;
 
   int size = 0;
@@ -368,6 +368,7 @@ class _ScholarshipState extends State<Scholarship> {
                                       SizedBox(height: 8,),
 
                                       Align(alignment: AlignmentDirectional.centerStart,child: Text("Type: ${data['type']}" ?? '', style: CustomTextStyles.style_card_desc,)),
+                                      Align(alignment: AlignmentDirectional.centerEnd,child: Text("Visit website >" ?? '', style: TextStyle(color: Colors.blue, fontFamily: 'Namun'),)),
                                     ],
                                   ),
                                 ),

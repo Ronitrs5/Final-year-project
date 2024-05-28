@@ -131,7 +131,25 @@ class TechnicalEventCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
-                    child: Text("${event['title']}", style: CustomTextStyles.style_card_title),
+                    child: Row(
+                      children: [
+
+                        ClipOval(
+                          child: Image.network(
+                            '${event['imageUrl']}',
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+
+                        SizedBox(width: 8,),
+                        Text("${event['title']}", style: CustomTextStyles.style_card_title),
+
+
+
+                      ],
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(8, 0, 8, 0),

@@ -18,8 +18,8 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  String technical = "";
-  String ngo = "";
+  String technical = "s";
+  String ngo = "s";
   String cultural = "s";
 
 

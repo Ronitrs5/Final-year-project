@@ -262,7 +262,9 @@ class _IDBenefitsState extends State<IDBenefits> {
 
                                     SizedBox(height: 8,),
 
-                                    Align(alignment: AlignmentDirectional.centerStart,child: Text("Eligibility: ${data['desc']}" ?? '', style: CustomTextStyles.style_card_desc)),
+                                    Align(alignment: AlignmentDirectional.centerStart,child: Text("Description: ${data['desc']}" ?? '', style: CustomTextStyles.style_card_desc)),
+
+                                    Align(alignment: AlignmentDirectional.centerEnd,child: Text("Visit website >" ?? '', style: TextStyle(color: Colors.blue, fontFamily: 'Namun'),)),
 
                                   ],
                                 ),

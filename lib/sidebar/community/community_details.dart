@@ -55,47 +55,49 @@ class CommunityDetails extends StatelessWidget {
         children: [
 
           Expanded(
-            child: Column(
-              children: [
-
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('About us', style: CustomTextStyles.style_card_title,),
-                      Text(desc, style: CustomTextStyles.style_card_desc,),
-
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                        child: Divider(thickness: 0.1,),
-                      ),
-
-                      Text('Organisation size', style: CustomTextStyles.style_card_title,),
-                      Text(size, style: CustomTextStyles.style_card_desc,),
-
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                        child: Divider(thickness: 0.1,),
-                      ),
-
-                      Text('Organization type', style: CustomTextStyles.style_card_title,),
-                      Text(type, style: CustomTextStyles.style_card_desc,),
-
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                        child: Divider(thickness: 0.1,),
-                      ),
-
-                      Text('Registration status', style: CustomTextStyles.style_card_title,),
-                      Text(status, style: TextStyle(
-                        color: status == 'Open'? Colors.green : Colors.red ,  fontFamily: 'Namun',
-                      ),),
-
-                    ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+              
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('About us', style: CustomTextStyles.style_card_title,),
+                        Text(desc, style: CustomTextStyles.style_card_desc,),
+              
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                          child: Divider(thickness: 0.1,),
+                        ),
+              
+                        Text('Organisation size', style: CustomTextStyles.style_card_title,),
+                        Text(size, style: CustomTextStyles.style_card_desc,),
+              
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                          child: Divider(thickness: 0.1,),
+                        ),
+              
+                        Text('Organization type', style: CustomTextStyles.style_card_title,),
+                        Text(type, style: CustomTextStyles.style_card_desc,),
+              
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                          child: Divider(thickness: 0.1,),
+                        ),
+              
+                        Text('Registration status', style: CustomTextStyles.style_card_title,),
+                        Text(status, style: TextStyle(
+                          color: status == 'Open'? Colors.green : Colors.red ,  fontFamily: 'Namun',
+                        ),),
+              
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 
