@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:major_project/colors/colors.dart';
+import 'package:major_project/sidebar/community/community_details.dart';
+import 'package:major_project/sidebar/contribute.dart';
 import 'package:major_project/sidebar/events/majoreventdir/major_technical.dart';
 import 'package:major_project/theme/style_card_title.dart';
 import 'package:shimmer/shimmer.dart';
@@ -187,11 +190,11 @@ class _CommunityPageState extends State<CommunityPage> {
     return Scaffold(
       backgroundColor: backgroundScaffold,
 
-      appBar: AppBar(
-        backgroundColor: backgroundAppbar,
-        title: Text('Communities and groups', style: CustomTextStyles.style_appbar,),
-        automaticallyImplyLeading: false,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: backgroundAppbar,
+      //   title: Text('Communities and groups', style: CustomTextStyles.style_appbar,),
+      //   automaticallyImplyLeading: false,
+      // ),
 
       body: Column(
         children: [
@@ -291,7 +294,7 @@ class _CommunityPageState extends State<CommunityPage> {
                 } else {
                   // If the future completed successfully
                   return Center(
-                    child: Text("Showing ${snapshot.data} results", style: TextStyle(color: Colors.white, fontFamily: 'Namun'),),
+                    child: Visibility(visible: snapshot.data !=0,child: Text("Showing ${snapshot.data} results", style: TextStyle(color: Colors.white, fontFamily: 'Namun'),)),
                   );
                 }
               },
@@ -388,7 +391,33 @@ class _CommunityPageState extends State<CommunityPage> {
                     );
                   } else {
                     List<Map<String, dynamic>> scholarshipData = snapshot.data ?? [];
-                    return scholarshipData.isEmpty ? Center(child: Text("No communities found for this filter", style: TextStyle(color: Colors.white),)) :
+                    return scholarshipData.isEmpty ?
+                    Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("No communities found for this filter", style: TextStyle(color: Colors.white60),),
+
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ContrbutePage()));
+                              },
+                              child: Container(
+                                  child: Column(
+                                    children: [
+                                      Text("Contribute to add", style: TextStyle(color: Colors.blue[700]),
+
+                                      ),
+                                      Icon(Icons.add_box_rounded, color: Colors.blue[700],)
+                                    ],
+                                  )
+                              ),
+                            ),
+
+                          ],
+                        )
+                    )
+                        :
                     // ListView.builder(
                     //   itemCount: scholarshipData.length,
                     //   itemBuilder: (context, index) {
@@ -428,7 +457,33 @@ class _CommunityPageState extends State<CommunityPage> {
                         Map<String, dynamic> data = scholarshipData[index];
                         return GestureDetector(
                           onTap: (){
-                            // _launchURLInDefaultBrowserOnAndroid(context, data['url']);
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (context, animation, secondaryAnimation) => CommunityDetails(
+                                    title: data['title'],
+                                    desc: data['description'],
+                                    type: data['type'],
+                                    size: data['size'],
+                                    status: data['status'],
+                                    link: data['link']
+                                ),
+                                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                  const begin = 0.0;
+                                  const end = 1.0;
+                                  const curve = Curves.ease;
+
+                                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                                  var fadeAnimation = animation.drive(tween);
+
+                                  return FadeTransition(
+                                    opacity: fadeAnimation,
+                                    child: child,
+                                  );
+                                },
+                              ),
+                            );
+
                           },
 
                           child: Padding(
@@ -447,7 +502,16 @@ class _CommunityPageState extends State<CommunityPage> {
                                     Align(alignment: AlignmentDirectional.centerStart,child: Text(data['title'] ?? '', style: CustomTextStyles.style_card_title,)),
                                     SizedBox(height: 8,),
                                     Align(alignment: AlignmentDirectional.centerStart,child: Text("Type: ${data['type']}" ?? '', style:CustomTextStyles.style_card_desc,)),
-                                    Align(alignment: AlignmentDirectional.centerStart,child: Text("Registration: ${data['status']}" ?? '', style: CustomTextStyles.style_card_desc,),),
+                                    Align(
+                                        alignment: AlignmentDirectional.centerStart,
+                                        child: Text("Registration: ${data['status']}" ?? '',
+                                          style: CustomTextStyles.style_card_desc,)
+                                    ),
+
+
+                                    Align(alignment: AlignmentDirectional.centerEnd,child: Text('View details >', style: TextStyle(color: Colors.blue, fontFamily: 'Namun'),))
+                                    
+                                    
                                   ],
                                 ),
                               ),

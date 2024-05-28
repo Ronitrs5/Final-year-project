@@ -25,7 +25,7 @@ class CustomTextStyles {
   );
 
   static const TextStyle style_appbar = TextStyle(
-      color: Colors.white,  fontFamily: 'Anta'
+      color: Colors.white,  fontFamily: 'Namun'
   );
 
 // Add more text styles as needed

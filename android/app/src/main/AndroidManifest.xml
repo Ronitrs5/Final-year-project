@@ -9,7 +9,7 @@
 
     <application
 
-        android:label="major_project"
+        android:label="Event Horizon"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

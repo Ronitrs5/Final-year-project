@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:lottie/lottie.dart';
 import 'package:major_project/colors/colors.dart';
+import 'package:major_project/sidebar/contribute.dart';
 import 'package:major_project/sidebar/events/majoreventdir/major_technical.dart';
 import 'package:major_project/theme/style_card_title.dart';
 import 'package:shimmer/shimmer.dart';
@@ -140,7 +142,7 @@ class _ScholarshipState extends State<Scholarship> {
             Container(
               color: backgroundAppbar,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -206,7 +208,7 @@ class _ScholarshipState extends State<Scholarship> {
                   } else {
                     // If the future completed successfully
                     return Center(
-                      child: Text("Showing ${snapshot.data} results", style: TextStyle(color: Colors.white, fontFamily: 'Namun'),),
+                      child: Visibility(visible: snapshot.data !=0,child: Text("Showing ${snapshot.data} results", style: TextStyle(color: Colors.white, fontFamily: 'Namun'),)),
                     );
                   }
                 },
@@ -307,7 +309,32 @@ class _ScholarshipState extends State<Scholarship> {
                       );
                     } else {
                       List<Map<String, dynamic>> scholarshipData = snapshot.data ?? [];
-                      return scholarshipData.isEmpty ? Center(child: Text("No scholarships found for this filter", style: TextStyle(color: Colors.white),)) :
+                      return scholarshipData.isEmpty ?
+                      Center(
+                          child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("No scholarships found for this filter", style: TextStyle(color: Colors.white60),),
+
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ContrbutePage()));
+                            },
+                            child: Container(
+                                child: Column(
+                                  children: [
+                                    Text("Contribute to add", style: TextStyle(color: Colors.blue[700]),
+
+                                    ),
+                                    Icon(Icons.add_box_rounded, color: Colors.blue[700],)
+                                  ],
+                                )
+                            ),
+                          ),
+
+                        ],
+                      )
+                      ) :
                       ListView.builder(
                         itemCount: scholarshipData.length,
                         itemBuilder: (context, index) {

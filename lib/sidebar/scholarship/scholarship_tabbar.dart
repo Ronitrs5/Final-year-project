@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:major_project/colors/colors.dart';
+import 'package:major_project/sidebar/community/community_info.dart';
 import 'package:major_project/sidebar/events/majoreventdir/major_technical.dart';
 import 'package:major_project/sidebar/scholarship/id_benefits.dart';
 import 'package:major_project/sidebar/scholarship/scholarship.dart';
@@ -19,7 +20,7 @@ class _ScholarshipTabbarState extends State<ScholarshipTabbar> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: DefaultTabController(
-          length: 2, // Number of tabs
+          length: 3, // Number of tabs
           child: Column(
             children: [
               // TabBar
@@ -28,6 +29,18 @@ class _ScholarshipTabbarState extends State<ScholarshipTabbar> {
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
                 tabs: [
+
+                  Tab(
+                    child: Text(
+                      'Communities',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Namun',
+                          letterSpacing: 0.5
+                      ),
+                    ),
+                  ),
+                  
                   Tab(
                     child: Text(
                       'Scholarships',
@@ -49,6 +62,8 @@ class _ScholarshipTabbarState extends State<ScholarshipTabbar> {
                       ),
                     ),
                   ),
+
+
                 ],
                 indicatorColor: Colors.white,
               ),
@@ -56,8 +71,11 @@ class _ScholarshipTabbarState extends State<ScholarshipTabbar> {
               Expanded(
                 child: TabBarView(
                   children: [
+
+                    CommunityPage(),
                     Scholarship(), // Content of Scholarships tab
-                    IDBenefits(), // Content of ID benefits tab
+                    IDBenefits(),
+
                   ],
                 ),
               ),

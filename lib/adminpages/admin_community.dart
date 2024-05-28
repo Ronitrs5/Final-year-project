@@ -17,12 +17,53 @@ class AdminCommunityPage extends StatefulWidget {
 class _AdminCommunityPageState extends State<AdminCommunityPage> {
   static const String fcmServerKey = "AAAAq3gzGJc:APA91bGIjXLTpqoS8wn4jzZ2Vmk68C7ETDVNwwJJNmP8bQf_uruCD8CYrCiBAwI7W07VJ_WDW6MEqXoJo1r3rJ2npSUqn2fJrB_QeCvwz0wZ4v-1VH5janO-xq4y0RKV38rZvjgjkFL_";
 
+  static Future<void> sendPushMessage(String title, String body) async {
+    try {
+      print("trying started");
+      final response = await http.post(
+        Uri.parse('https://fcm.googleapis.com/fcm/send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=$fcmServerKey',
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic>{
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'title': title,
+              'body': body,
+            },
+            'notification': <String, dynamic>{
+              'title': title,
+              'body': body,
+              'android_channel': 'acdaa',
+            },
+            'condition': "'event_notification_all' in topics",
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print("Success NOTI");
+      } else {
+        print("Failed NOTI");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Something went wrong with NOTIFICATION: $e');
+      }
+    }
+  }
+
   String active = "";
   String type = "";
   bool isPublishing = false;
   TextEditingController TEC_title = TextEditingController();
   TextEditingController TEC_no_people = TextEditingController();
   TextEditingController TEC_desc = TextEditingController();
+  TextEditingController TEC_link = TextEditingController();
   final AuthService _authService = AuthService();
 
   @override
@@ -218,6 +259,28 @@ class _AdminCommunityPageState extends State<AdminCommunityPage> {
                     ),
                   ),
 
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                    child: TextField(
+                      controller: TEC_link,
+                      textInputAction: TextInputAction.next,
+                      maxLines: null, // Set maxLines to null for multiline input
+                      decoration: const InputDecoration(
+                          labelText: 'Link',
+                          prefixIcon: Icon(Icons.link),
+                          border: OutlineInputBorder(),
+                          // errorText: isUsernameEmpty
+                          //     ? 'Please enter username'
+                          //     : null,
+                          errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                              )
+                          )
+                      ),
+                    ),
+                  ),
+
                 ],
               ),
             ),
@@ -277,6 +340,7 @@ class _AdminCommunityPageState extends State<AdminCommunityPage> {
           'size': size,
           'status': active,
           'type': type,
+          'link': TEC_link.text.trim(),
         });
 
       ScaffoldMessenger.of(context)
@@ -301,42 +365,4 @@ class _AdminCommunityPageState extends State<AdminCommunityPage> {
       );
     }
   }
-
-  static Future<void> sendPushMessage(String title, String body) async {
-    try {
-      final response = await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'key=$fcmServerKey',
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'status': 'done',
-              'title': title,
-              'body': body,
-            },
-            'notification': <String, dynamic>{
-              'title': title,
-              'body': body,
-              'android_channel': 'acd',
-              'icon': 'assets/images/food1.png',
-            },
-            'condition': "'event_notification_all' in topics",
-          },
-        ),
-      );
-
-      if (response.statusCode == 200) {
-      } else {}
-    } catch (e) {
-      if (kDebugMode) {
-        print('Something went wrong with NOTIFICATION: $e');
-      }
-    }
-  }
-
 }

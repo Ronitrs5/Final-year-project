@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:major_project/classes/auth_service.dart';
 import 'package:major_project/colors/colors.dart';
 import 'package:major_project/pages/start_page.dart';
@@ -158,6 +160,59 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
     }
   }
 
+  // Future<void> updateStudentProfile() async {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //
+  //   setState(() {
+  //     editMode = true;
+  //     isLoading = true;
+  //   });
+  //   if (user != null) {
+  //     try {
+  //       String phone = TEC_phone.text.trim();
+  //       String address = TEC_address.text.trim();
+  //       String cid = TEC_collegeid.text.trim();
+  //       String college = TEC_college.text.trim();
+  //
+  //       await FirebaseFirestore.instance
+  //           .collection('students_registration_data')
+  //           .doc(user.uid)
+  //           .update({
+  //         'student_phone': '+91-$phone',
+  //         'student_address': address,
+  //         'student_cid': cid,
+  //         'student_college':college,
+  //         // Add more fields if needed
+  //       });
+  //
+  //       setState(() {
+  //         editMode = false;
+  //         isLoading = false;
+  //       });
+  //
+  //       ScaffoldMessenger.of(context).
+  //       showSnackBar(SnackBar(content: Text("Data updated", style: TextStyle(color: Colors.black),), behavior: SnackBarBehavior.floating, backgroundColor: Colors.white,));
+  //       print('Data uploaded to Firestore successfully!');
+  //     } catch (error) {
+  //       // Error handling
+  //       setState(() {
+  //         editMode = false;
+  //         isLoading = false;
+  //       });
+  //       ScaffoldMessenger.of(context).
+  //       showSnackBar(SnackBar(content: Text("Something went wrong", style: TextStyle(color: Colors.black),), behavior: SnackBarBehavior.floating, backgroundColor: Colors.white,));
+  //       print('Error uploading data to Firestore: $error');
+  //     }
+  //   }else{
+  //     setState(() {
+  //       editMode = false;
+  //       isLoading = false;
+  //     });
+  //     ScaffoldMessenger.of(context).
+  //     showSnackBar(SnackBar(content: Text("Something went wrong", style: TextStyle(color: Colors.black),), behavior: SnackBarBehavior.floating, backgroundColor: Colors.white,));
+  //   }
+  // }
+
   Future<void> updateStudentProfile() async {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -172,24 +227,47 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
         String cid = TEC_collegeid.text.trim();
         String college = TEC_college.text.trim();
 
-        await FirebaseFirestore.instance
-            .collection('students_registration_data')
-            .doc(user.uid)
-            .update({
+        // Upload image to Firebase Storage if an image is selected
+        String? imageUrl;
+        if (_image != null) {
+          final storageRef = FirebaseStorage.instance
+              .ref()
+              .child('profile_images')
+              .child('${user.uid}.jpg');
+          await storageRef.putFile(_image!);
+          imageUrl = await storageRef.getDownloadURL();
+        }
+
+        // Update user data in Firestore
+        Map<String, dynamic> userData = {
           'student_phone': '+91-$phone',
           'student_address': address,
           'student_cid': cid,
-          'student_college':college,
-          // Add more fields if needed
-        });
+          'student_college': college,
+        };
+
+        if (imageUrl != null) {
+          userData['profile_image_url'] = imageUrl;
+        }
+
+        await FirebaseFirestore.instance
+            .collection('students_registration_data')
+            .doc(user.uid)
+            .update(userData);
 
         setState(() {
           editMode = false;
           isLoading = false;
         });
 
-        ScaffoldMessenger.of(context).
-        showSnackBar(SnackBar(content: Text("Data updated", style: TextStyle(color: Colors.black),), behavior: SnackBarBehavior.floating, backgroundColor: Colors.white,));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            "Data updated",
+            style: TextStyle(color: Colors.black),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.white,
+        ));
         print('Data uploaded to Firestore successfully!');
       } catch (error) {
         // Error handling
@@ -197,26 +275,37 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
           editMode = false;
           isLoading = false;
         });
-        ScaffoldMessenger.of(context).
-        showSnackBar(SnackBar(content: Text("Something went wrong", style: TextStyle(color: Colors.black),), behavior: SnackBarBehavior.floating, backgroundColor: Colors.white,));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            "Something went wrong",
+            style: TextStyle(color: Colors.black),
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.white,
+        ));
         print('Error uploading data to Firestore: $error');
       }
-    }else{
+    } else {
       setState(() {
         editMode = false;
         isLoading = false;
       });
-      ScaffoldMessenger.of(context).
-      showSnackBar(SnackBar(content: Text("Something went wrong", style: TextStyle(color: Colors.black),), behavior: SnackBarBehavior.floating, backgroundColor: Colors.white,));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(
+          "Something went wrong",
+          style: TextStyle(color: Colors.black),
+        ),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.white,
+      ));
     }
   }
-
   // @override
   // void initState() {
   //   super.initState();
-  //   _initAsync();
+  //   fetchImage();
   // }
-  //
+
   // Future<void> _initAsync() async {
   //   _loadThemePreference();
   // }
@@ -238,6 +327,51 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
   //     nightMode = value;
   //   });
   // }
+
+  File? _image;
+
+  Future<void> _getImage() async {
+    final picker = ImagePicker();
+    var pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+      }
+    });
+  }
+
+  Future<String> fetchImage() async {
+    try {
+      // Get the current user
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        print('No user is currently signed in.');
+        return '';
+      }
+
+      // Get the Firestore instance
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      // Reference to the user's document in the 'majorevent' collection
+      DocumentReference userDoc = firestore.collection('students_registration_data').doc(user.uid);
+
+      // Get the user's document
+      DocumentSnapshot docSnapshot = await userDoc.get();
+
+      if (docSnapshot.exists) {
+        return docSnapshot['majorImageUrl'];
+      } else {
+        print('No document found for user: ${user.uid}');
+        return '';
+      }
+    } catch (e) {
+      print('Error fetching image: $e');
+      return '';
+    }
+  }
+
 
 
   @override
@@ -328,46 +462,47 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
           children: [
 
 
-            Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 32, 0, 0),
-                  child: GestureDetector(
-                    onTap: (){
-                      if(editMode) {
-                        ScaffoldMessenger.of(context).
-                        showSnackBar(SnackBar(content: Text("Coming soon",
-                          style: TextStyle(color: Colors.black),),
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.white,));
-                      }
-                    },
-                    child: Container(
-                        width: !editMode ? null : 150,
-                        height: !editMode ? null : 150,
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: !editMode ? color_eventcard: Colors.transparent,
-                          borderRadius: BorderRadius.circular(120),
-                          border:
-                              editMode ? Border.all(color: Colors.grey) : null,
-                        ),
-                        child: !editMode
-                            ? Icon(
-                                Icons.person,
-                                size: 80,
-                          color: Colors.grey[800],
-                              )
-                            : Center(
-                                child: Text(
-                                "Click to choose photo",
-                                style: TextStyle(color: Colors.white, fontFamily: 'Namun'),
-                                  textAlign: TextAlign.center,
 
-                              ))),
-                  ),
-                )
-            ),
+            //
+            // Align(
+            //     alignment: Alignment.topCenter,
+            //     child: Padding(
+            //       padding: const EdgeInsets.fromLTRB(0, 32, 0, 0),
+            //       child: GestureDetector(
+            //         onTap: (){
+            //           if(editMode) {
+            //             _getImage();
+            //           }
+            //         },
+            //         child: Container(
+            //             width: !editMode ? null : 150,
+            //             height: !editMode ? null : 150,
+            //             padding: EdgeInsets.all(16),
+            //             decoration: BoxDecoration(
+            //               color: !editMode ? color_eventcard: Colors.transparent,
+            //               borderRadius: BorderRadius.circular(120),
+            //               border:
+            //                   editMode ? Border.all(color: Colors.grey) : null,
+            //             ),
+            //             child: !editMode && _image != null
+            //                 ? Image.file(_image!)
+            //                 :
+            //
+            //             editMode && _image != null ?
+            //             Image.file(_image!):
+            //
+            //             Center(
+            //                     child: Text(
+            //                     "Click to choose photo",
+            //                     style: TextStyle(color: Colors.white, fontFamily: 'Namun'),
+            //                       textAlign: TextAlign.center,
+            //
+            //                   )
+            //             )
+            //         ),
+            //       ),
+            //     )
+            // ),
             SizedBox(
               height: 16,
             ),
@@ -375,6 +510,7 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
               visible: !editMode,
               child: Column(
                 children: [
+
                   FutureBuilder<Map<String?, dynamic>>(
                     future: fetchDetails(),
                     builder: (context, snapshot) {
@@ -518,42 +654,42 @@ class _ProfilePageNewState extends State<ProfilePageNew> {
                             // Adjust indent as needed
                           ),
 
-                          GestureDetector(
-
-                              onTap: (){
-
-                                ScaffoldMessenger.of(context).
-                                showSnackBar(SnackBar(content: Text('Themes coming soon', style: TextStyle(color: Colors.black),), backgroundColor: Colors.white, behavior: SnackBarBehavior.floating,));
-                                // showDialog(
-                                //   context: context,
-                                //   builder: (BuildContext context) {
-                                //     return AlertDialog(
-                                //       backgroundColor: nightMode ? Colors.white : Colors.black,
-                                //       title: Text(nightMode? 'Switch to light mode?' : 'Switch to dark mode?',
-                                //         style: TextStyle(color: nightMode? Colors.black : Colors.white, fontFamily: 'Namun'),),
-                                //       content: Text('Are you sure you want to switch theme?', style: TextStyle(color: nightMode? Colors.black : Colors.white,  fontFamily: 'Namun')),
-                                //       actions: <Widget>[
-                                //         TextButton(
-                                //           onPressed: () {
-                                //             Navigator.of(context).pop(); // Close the dialog
-                                //           },
-                                //           child:  Text('No', style: TextStyle(color: nightMode? Colors.black : Colors.white,  fontFamily: 'Namun')),
-                                //         ),
-                                //         TextButton(
-                                //           onPressed: () {
-                                //             _toggleThemePreference(!nightMode);
-                                //             Navigator.of(context).pop(); // Close the dialog
-                                //           },
-                                //           child:  Text('Yes', style: TextStyle(color: nightMode? Colors.black : Colors.white,  fontFamily: 'Namun')),
-                                //         ),
-                                //       ],
-                                //     );
-                                //   },
-                                // );
-                              },
-
-                              child: ProfileSettingWidget(text: nightMode? 'Dark mode' : 'Light mode', icon: nightMode? Icons.dark_mode_rounded : Icons.light_mode_rounded,)
-                          ),
+                          // GestureDetector(
+                          //
+                          //     onTap: (){
+                          //
+                          //       ScaffoldMessenger.of(context).
+                          //       showSnackBar(SnackBar(content: Text('Themes coming soon', style: TextStyle(color: Colors.black),), backgroundColor: Colors.white, behavior: SnackBarBehavior.floating,));
+                          //       // showDialog(
+                          //       //   context: context,
+                          //       //   builder: (BuildContext context) {
+                          //       //     return AlertDialog(
+                          //       //       backgroundColor: nightMode ? Colors.white : Colors.black,
+                          //       //       title: Text(nightMode? 'Switch to light mode?' : 'Switch to dark mode?',
+                          //       //         style: TextStyle(color: nightMode? Colors.black : Colors.white, fontFamily: 'Namun'),),
+                          //       //       content: Text('Are you sure you want to switch theme?', style: TextStyle(color: nightMode? Colors.black : Colors.white,  fontFamily: 'Namun')),
+                          //       //       actions: <Widget>[
+                          //       //         TextButton(
+                          //       //           onPressed: () {
+                          //       //             Navigator.of(context).pop(); // Close the dialog
+                          //       //           },
+                          //       //           child:  Text('No', style: TextStyle(color: nightMode? Colors.black : Colors.white,  fontFamily: 'Namun')),
+                          //       //         ),
+                          //       //         TextButton(
+                          //       //           onPressed: () {
+                          //       //             _toggleThemePreference(!nightMode);
+                          //       //             Navigator.of(context).pop(); // Close the dialog
+                          //       //           },
+                          //       //           child:  Text('Yes', style: TextStyle(color: nightMode? Colors.black : Colors.white,  fontFamily: 'Namun')),
+                          //       //         ),
+                          //       //       ],
+                          //       //     );
+                          //       //   },
+                          //       // );
+                          //     },
+                          //
+                          //     child: ProfileSettingWidget(text: nightMode? 'Dark mode' : 'Light mode', icon: nightMode? Icons.dark_mode_rounded : Icons.light_mode_rounded,)
+                          // ),
 
                           GestureDetector(
                               onTap: (){
